@@ -1,0 +1,19 @@
+article.card.product-item
+  header.card__header
+    h1.product-title #{product.title}
+  div.card__image
+    - const url = product.imgUrl;
+    - const alt = product.title;
+    img(src='/' + url, alt=alt)
+  div.card__content
+    h2.product__price $#{product.price}
+    p.product__description #{product.description}
+  div.card__actions
+    - const id = product._id
+    //- form.inline(action='/admin/delete-product/'+id, method='POST')
+    input(type='hidden' name='_csrf' value=csrfToken)
+    input(type='hidden' name='productId' value=id)
+    button.btn(type='button', onClick="deleteProduct(this)") Delete
+
+    button.btn
+      a.btn__link(href='/admin/edit-product/'+id) Edit product  

@@ -1,0 +1,16 @@
+extends ../templates/main-template.pug
+
+
+block styles
+  link(rel="stylesheet" href="/css/products.css")
+
+block content
+  if prods.length > 0
+    h1 List of all products
+    div.grid
+      each product in prods
+        include ../includes/product-admin.pug
+  else
+    h1 No products found
+  
+  script(src="/js/admin.js")

@@ -1,0 +1,31 @@
+extends ../templates/main-template.pug
+
+block content
+  h1 Cart
+  if prods.length > 0
+    table
+      tr
+        th Title
+        th Price
+        th Quantity
+        th Delete item
+      each product in prods
+        tr
+          td #{product.title}
+          td #{product.price}
+          td #{product.quantity}
+            form.inline(action='/cart/reduce-product-quantity', method='post')
+              input(type='hidden' name='_csrf' value=csrfToken)
+              button.btn(type='submit') -
+              input(type='hidden', name='productId', value=product._id)          
+          td
+            form.inline(action='/cart/delete-product', method='post')
+              input(type='hidden' name='_csrf' value=csrfToken)
+              button.btn(type='submit') Delete
+              input(type='hidden', name='productId', value=product._id)
+    //- div Total price: #{totalPrice}
+    form.inline(action='/cart/checkout', method='post')
+      input(type='hidden' name='_csrf' value=csrfToken)
+      button.btn(type='submit') Checkout
+  else
+    h1 You cart is empty

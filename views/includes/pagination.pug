@@ -1,0 +1,9 @@
+mixin pagination(number, curPage)
+  section.pagination
+    - let n = 1
+    while n <= number
+      -let curNum = n++
+      -let curClass = ''
+      if +curNum === +curPage
+        -curClass='active'
+      a(href='?page='+curNum, class=curClass)=curNum

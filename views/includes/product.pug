@@ -1,0 +1,19 @@
+article.card.product-item
+  header.card__header
+    h1.product-title #{product.title}
+  div.card__image
+    - const url = product.imgUrl;
+    - const alt = product.title;
+    img(src=url, alt=alt)
+  div.card__content
+    h2.product__price $#{product.price}
+    p.product__description #{product.description}
+  div.card__actions
+    - const id = product._id
+    button.btn
+      a.btn__link(href='/product-list/'+id) Details
+    if isLoggedIn
+      form.inline(action='/cart', method='post')
+        button.btn(type='submit') Add to Cart
+        input(type='hidden' name='_csrf' value=csrfToken)
+        input(type='hidden', name='productId', value=id)

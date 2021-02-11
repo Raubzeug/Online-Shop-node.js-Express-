@@ -1,0 +1,19 @@
+extends ../templates/main-template.pug
+
+block styles
+  link(rel="stylesheet" href="/css/product-add-form.css")
+
+block content
+  main
+    form.product-form(action="/signup", method="POST")
+      div.form-control
+        label(for="email") Email
+        input(type="email",name="email",id="email", value = oldInput ? oldInput.email : '', class = errorEmail ? 'invalid' : '')
+        label(for="password") Password
+        input(type="password",name="password",id="password", class = errorPass ? 'invalid' : '')
+        label(for="passwordConfirm") Confirm password
+        input(type="password",name="passwordConfirm",id="passwordConfirm", class = errorPassConf ? 'invalid' : '')
+        input(type='hidden' name='_csrf' value=csrfToken)
+      button(type="submit") Signup
+    if error
+      .user-message.user-message--error #{error}

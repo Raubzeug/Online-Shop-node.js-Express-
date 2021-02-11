@@ -1,0 +1,29 @@
+extends ../templates/main-template.pug
+
+block content
+  if orders.length > 0
+    table
+      - let num = 1
+      tr
+        th #
+        th Order number
+        th Items
+        th Price
+        th Invoice
+      each order in orders
+        tr
+          td #{num}
+          - num = num + 1
+          td #{order._id}
+          td
+            ul
+              each prod in order.products
+                li #{prod.productData.title} (#{prod.quantity})
+              
+          td Dummy data
+          td
+            - const link = '/orders/' + order._id.toString()
+            a(href=link) Invoice
+          //- td #{order.price}
+  else
+    h1 You have no orders yet

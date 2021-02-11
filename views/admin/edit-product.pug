@@ -1,0 +1,26 @@
+extends ../templates/main-template.pug
+
+block styles
+  link(rel="stylesheet" href="/css/product-add-form.css")
+
+block content
+  main
+  -const prod=product
+  -const isEditing = prod ? prod._id ? true : false : false
+    h1.product-form__header #{prod ? 'Edit' : 'Add'} product
+    form.product-form(action=isEditing ? "/admin/edit-product/"+prod._id : "/admin/add-product", method="POST", enctype='multipart/form-data')
+      div.form-control
+        label(for="title") Title
+        input(type="text",name="title",id="title",value=prod ? prod.title : '')
+        label(for="price") Price
+        input(type="number",name="price",id="price",step='0.01',value=prod ? prod.price : '')
+        label(for="description") Description
+        textarea(rows='5',name='description', id="description") #{prod ? prod.description : ''}
+        label(for="img") Image
+        input(type="file",name="img",id="img")
+        //- label(for="imgUrl") image URL
+        //- input(type="text",name="imgUrl",id="imgUrl", value=prod ? prod.imgUrl : '')
+        input(type='hidden' name='_csrf' value=csrfToken)
+      button(type="submit") #{prod ? 'Save' : 'Add'}
+    if error
+      .user-message.user-message--error #{error}

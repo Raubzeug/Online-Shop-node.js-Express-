@@ -1,0 +1,17 @@
+extends ../templates/main-template.pug
+
+block styles
+  link(rel="stylesheet" href="/css/product-add-form.css")
+
+block content
+  main
+
+    h1.product-form__header Reset password
+    form.product-form(action="/reset-password", method="POST")
+      div.form-control
+        label(for="email") Email
+        input(type="email",name="email",id="email")
+        input(type='hidden' name='_csrf' value=csrfToken) 
+      button(type="submit") Reset password
+    if error
+      .user-message.user-message--error #{error}
